@@ -3,6 +3,7 @@ package quizdeck
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -12,11 +13,13 @@ var (
 )
 
 type ConfigSet interface {
+	GetDebugMode() bool
 	GetDiscordAuthToken() string
 	GetDiscordAppID() string
 }
 
 type configSet struct {
+	debugMode        string
 	discordAuthToken string
 	discordAppID     string
 }
@@ -27,10 +30,15 @@ func NewConfigSet() ConfigSet {
 		log.Printf("fail to load env vars: %v\n", err.Error())
 	}
 	instance := configSet{
+		debugMode:        os.Getenv("DEBUG_MODE"),
 		discordAuthToken: os.Getenv("DISCORD_AUTH_TOKEN"),
 		discordAppID:     os.Getenv("DISCORD_APP_ID"),
 	}
 	return &instance
+}
+
+func (c *configSet) GetDebugMode() bool {
+	return strings.ToLower(c.debugMode) == "true"
 }
 
 func (c *configSet) GetDiscordAuthToken() string {

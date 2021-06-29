@@ -2,6 +2,7 @@ package quizdeck_test
 
 import (
 	"os"
+	"strconv"
 	"testing"
 
 	"github.com/RainrainWu/quizdeck"
@@ -14,6 +15,10 @@ func TestConfigSet(t *testing.T) {
 		envName string
 		actual  string
 	}{
+		{
+			"DEBUG_MODE",
+			strconv.FormatBool(quizdeck.Config.GetDebugMode()),
+		},
 		{
 			"DISCORD_AUTH_TOKEN",
 			quizdeck.Config.GetDiscordAuthToken(),
