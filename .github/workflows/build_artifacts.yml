@@ -5,10 +5,10 @@ name: Build Artifacts
 on:
   push:
     branches:
-    - "*"
+    - "**"
   pull_request:
     branches:
-    - "*"
+    - "**"
 
   workflow_dispatch:
 
