@@ -4,9 +4,11 @@ name: Build Artifacts
 
 on:
   push:
-    branches: [ * ]
+    branches:
+    - "*"
   pull_request:
-    branches: [ * ]
+    branches:
+    - "*"
 
   workflow_dispatch:
 
