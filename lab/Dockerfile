@@ -6,9 +6,9 @@ ENV CGO_ENABLED=0 \
 RUN go env -w GOPROXY=direct
 
 WORKDIR /quizdeck
-COPY . .
+COPY .. .
 RUN go mod download && \
-    go build -o ./build/quizdeck ./cmd && \
+    go build -o ./build/quizdeck ./lab && \
     chmod +x ./build/quizdeck
 
 # App Container
