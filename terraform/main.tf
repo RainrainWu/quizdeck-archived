@@ -1,4 +1,11 @@
 terraform {
+  backend "remote" {
+    organization = "quizdeck"
+    workspaces {
+      name = "quizdeck"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
