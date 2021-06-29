@@ -3,12 +3,10 @@ name: 'Terraform'
 on:
   push:
     branches:
-    - develop
-    - project/*
+    - "**"
   pull_request:
     branches:
-    - develop
-    - project/*
+    - "**"
 
 jobs:
   terraform:
@@ -19,6 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ./terraform
 
     steps:
     - name: Checkout
