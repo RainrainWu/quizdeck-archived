@@ -7,7 +7,6 @@ RUN go env -w GOPROXY=direct
 
 WORKDIR /quizdeck
 COPY . .
-RUN ls
 RUN go mod download && \
     go build -o ./build/quizdeck ./lab && \
     chmod +x ./build/quizdeck
