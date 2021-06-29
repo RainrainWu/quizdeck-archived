@@ -19,3 +19,6 @@
 
 # OSX artifacts
 .DS_Store
+
+# Terraform state
+terraform/.terraform/
