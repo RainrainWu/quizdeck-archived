@@ -28,7 +28,7 @@ resource "aws_iam_policy" "quizdeck_lab" {
       ],
       "Resource": [
           "arn:aws:logs:${var.AWS_REGION}:${var.AWS_ACCOUNT_ID}:log-group:/aws/lambda/${var.LAMBDA_QUIZDECK_LAB_FUNCTION_NAME}:*"
-      ],
+      ]
     }
   ]
 }
