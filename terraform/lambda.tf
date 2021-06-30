@@ -7,7 +7,7 @@ resource "aws_lambda_function" "quizdeck_lab" {
 
   function_name = "quizdeck_lab"
   role          = aws_iam_role.quizdeck_lab.arn
-  image_uri     = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/quizdeck_lab:latest"
+  image_uri     = "${var.AWS_ACCOUNT_ID}.dkr.ecr.${var.AWS_REGION}.amazonaws.com/${var.ECR_QUIZDECK_LAB_REGISTRY_NAME}:latest"
   runtime       = "go1.x"
   timeout       = 60
 }
