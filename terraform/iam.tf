@@ -5,7 +5,16 @@ resource "aws_iam_role" "quizdeck_lab" {
   assume_role_policy = <<EOF
 {
     "Version": "2021-06-30",
-    "Statement": []
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": "sts:AssumeRole",
+        "Principal": {
+          "Service": "lambda.amazonaws.com"
+        },
+        "Sid": ""
+      }
+    ]
 }
 EOF
 }
