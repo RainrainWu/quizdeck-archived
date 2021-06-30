@@ -4,7 +4,7 @@ resource "aws_iam_role" "quizdeck_lab" {
 
   assume_role_policy = <<EOF
 {
-    "Version": "2021-06-30",
+    "Version": "2012-10-17",
     "Statement": [
       {
         "Effect": "Allow",
