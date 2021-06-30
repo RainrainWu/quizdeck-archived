@@ -31,11 +31,6 @@ resource "aws_iam_policy" "quizdeck_lab" {
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": "logs:CreateLogGroup",
-      "Resource": "arn:aws:logs:${var.AWS_REGION}:${var.AWS_ACCOUNT_ID}:*"
-    },
-    {
-      "Effect": "Allow",
       "Action": [
         "logs:CreateLogStream",
         "logs:PutLogEvents"
