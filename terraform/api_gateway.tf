@@ -3,11 +3,11 @@ resource "aws_apigatewayv2_api" "quizdeck" {
   protocol_type = "HTTP"
 }
 
-resource "aws_apigatewayv2_integration" "example" {
+resource "aws_apigatewayv2_integration" "quizdeck" {
   api_id             = aws_apigatewayv2_api.quizdeck.id
   integration_type   = "HTTP_PROXY"
   integration_method = "POST"
-  integration_uri    = aws_lambda_function.quizdeck.invoke_arn
+  integration_uri    = aws_lambda_function.quizdeck_lab.invoke_arn
 }
 
 resource "aws_apigatewayv2_route" "quizdeck" {
