@@ -9,6 +9,5 @@ resource "aws_lambda_function" "quizdeck_lab" {
   role          = aws_iam_role.quizdeck_lab.arn
   package_type  = "Image"
   image_uri     = "${var.AWS_ACCOUNT_ID}.dkr.ecr.${var.AWS_REGION}.amazonaws.com/${var.ECR_QUIZDECK_LAB_REGISTRY_NAME}:latest"
-  runtime       = "go1.x"
   timeout       = 60
 }
