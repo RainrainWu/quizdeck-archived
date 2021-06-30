@@ -4,10 +4,7 @@ variable "AWS_REGION" {
   default = "us-east-1"
 }
 
-variable "AWS_ACCOUNT_ID" {
-
-  type = string
-}
+variable "AWS_ACCOUNT_ID" {}
 
 variable "LAMBDA_QUIZDECK_LAB_FUNCTION_NAME" {
 
