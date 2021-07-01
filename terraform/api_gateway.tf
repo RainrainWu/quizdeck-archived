@@ -26,14 +26,14 @@ resource "aws_apigatewayv2_route" "quizdeck_lab" {
 
   api_id    = aws_apigatewayv2_api.quizdeck.id
   route_key = "POST /lab"
-  target    = "integrations/${aws_apigatewayv2_integration.quizdeck.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.quizdeck_lab.id}"
 }
 
 resource "aws_apigatewayv2_route" "quizdeck_router_discord" {
 
   api_id    = aws_apigatewayv2_api.quizdeck.id
   route_key = "POST /router_discord"
-  target    = "integrations/${aws_apigatewayv2_integration.quizdeck.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.quizdeck_router_discord.id}"
 }
 
 resource "aws_apigatewayv2_stage" "quizdeck" {
