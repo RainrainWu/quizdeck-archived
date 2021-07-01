@@ -1,9 +1,5 @@
 resource "aws_apigatewayv2_api" "quizdeck" {
 
-  depends_on = [
-    aws_iam_role_policy_attachment.apigateway_invoke_lambda,
-  ]
-
   name          = "quizdeck"
   protocol_type = "HTTP"
 }
