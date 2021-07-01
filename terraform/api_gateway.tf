@@ -12,7 +12,7 @@ resource "aws_apigatewayv2_integration" "quizdeck" {
 
 resource "aws_apigatewayv2_route" "quizdeck" {
   api_id    = aws_apigatewayv2_api.quizdeck.id
-  route_key = "ANY /discord/{proxy+}"
+  route_key = "POST /lab"
   target    = "integrations/${aws_apigatewayv2_integration.quizdeck.id}"
 }
 
