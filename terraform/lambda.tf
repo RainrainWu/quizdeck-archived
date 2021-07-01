@@ -19,3 +19,4 @@ resource "aws_lambda_permission" "quizdeck_lab" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.quizdeck.execution_arn}/*/*/lab"
 }
+
