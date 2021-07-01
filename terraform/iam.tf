@@ -1,6 +1,6 @@
 resource "aws_iam_role" "lambda_quizdeck_lab" {
 
-  name = var.LAMBDA_QUIZDECK_LAB_FUNCTION_NAME
+  name = "lambda_quizdeck_lab"
 
   assume_role_policy = <<EOF
 {
@@ -21,7 +21,7 @@ EOF
 
 resource "aws_iam_policy" "lambda_quizdeck_lab" {
 
-  name        = var.LAMBDA_QUIZDECK_LAB_FUNCTION_NAME
+  name        = "lambda_quizdeck_lab"
   path        = "/"
   description = "IAM policy for logging from a lambda"
 
@@ -52,7 +52,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs_quizdeck_lab" {
 
 resource "aws_iam_role" "apigateway_quizdeck" {
 
-  name = var.LAMBDA_QUIZDECK_LAB_FUNCTION_NAME
+  name = "apigateway_quizdeck"
 
   assume_role_policy = <<EOF
 {
