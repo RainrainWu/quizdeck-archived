@@ -17,6 +17,7 @@ resource "aws_apigatewayv2_route" "quizdeck" {
 }
 
 resource "aws_apigatewayv2_stage" "quizdeck" {
-  api_id = aws_apigatewayv2_api.quizdeck.id
-  name   = "$default"
+  api_id      = aws_apigatewayv2_api.quizdeck.id
+  name        = "$default"
+  auto_deploy = true
 }
