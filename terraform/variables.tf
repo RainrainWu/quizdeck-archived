@@ -15,7 +15,7 @@ variable "ECR_QUIZDECK_LAB_REGISTRY_NAME" {
 variable "ECR_QUIZDECK_ROUTER_DISCORD_REGISTRY_NAME" {
 
   type    = string
-  default = "quizdeck/qouter_discord"
+  default = "quizdeck/router_discord"
 }
 
 variable "LAMBDA_QUIZDECK_LAB_FUNCTION_NAME" {
