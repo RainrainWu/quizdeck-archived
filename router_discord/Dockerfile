@@ -8,7 +8,7 @@ RUN go env -w GOPROXY=direct
 WORKDIR /quizdeck
 COPY . .
 RUN go mod download && \
-    go build -o ./build/quizdeck ./router_discord && \
+    GOARCH=amd64 GOOS=linux go build -o ./build/quizdeck ./router_discord && \
     chmod +x ./build/quizdeck
 
 # App Container
