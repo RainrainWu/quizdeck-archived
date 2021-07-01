@@ -3,6 +3,7 @@ package lab
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/mitchellh/mapstructure"
@@ -48,7 +49,7 @@ func loadInteraction(digest interface{}) DiscordInteraction {
 
 	interaction := DiscordInteraction{}
 	mapstructure.Decode(digest, &interaction)
-	return integration
+	return interaction
 }
 
 func HandleRequest(ctx context.Context, event interface{}) (string, error) {
