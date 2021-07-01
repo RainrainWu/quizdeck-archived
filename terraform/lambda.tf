@@ -17,5 +17,5 @@ resource "aws_lambda_permission" "quizdeck_lab" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.quizdeck_lab.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.quizdeck.execution_arn}/*/POST/lab"
+  source_arn    = "${aws_apigatewayv2_api.quizdeck.execution_arn}/*/*/lab"
 }
