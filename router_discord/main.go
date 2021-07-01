@@ -7,8 +7,6 @@ import (
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/mitchellh/mapstructure"
-
-	"github.com/RainrainWu/quizdeck"
 )
 
 type DiscordInteraction struct {
@@ -56,7 +54,7 @@ func HandleRequest(ctx context.Context, event interface{}) (string, error) {
 
 	result := loadInteraction(event)
 	fmt.Println("parse result: %v\n", result)
-	return fmt.Sprintf("current debug mode: %v", quizdeck.Config.GetDebugMode()), nil
+	return fmt.Sprintf("current command: %s", result.Data.Options[0].Name), nil
 }
 
 func main() {

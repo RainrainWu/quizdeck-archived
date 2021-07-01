@@ -1,6 +1,6 @@
-resource "aws_iam_role" "lambda_quizdeck_lab" {
+resource "aws_iam_role" "lambda_quizdeck" {
 
-  name = "lambda_quizdeck_lab"
+  name = "lambda_quizdeck"
 
   assume_role_policy = <<EOF
 {
@@ -19,9 +19,9 @@ resource "aws_iam_role" "lambda_quizdeck_lab" {
 EOF
 }
 
-resource "aws_iam_policy" "lambda_quizdeck_lab" {
+resource "aws_iam_policy" "lambda_quizdeck" {
 
-  name        = "lambda_quizdeck_lab"
+  name        = "lambda_quizdeck"
   path        = "/"
   description = "IAM policy for logging from a lambda"
 
@@ -36,7 +36,7 @@ resource "aws_iam_policy" "lambda_quizdeck_lab" {
         "logs:PutLogEvents"
       ],
       "Resource": [
-        "arn:aws:logs:${var.AWS_REGION}:${var.AWS_ACCOUNT_ID}:log-group:/aws/lambda/${var.LAMBDA_QUIZDECK_LAB_FUNCTION_NAME}:*"
+        "arn:aws:logs:${var.AWS_REGION}:${var.AWS_ACCOUNT_ID}:log-group:/aws/lambda/*:*"
       ]
     }
   ]
@@ -44,8 +44,8 @@ resource "aws_iam_policy" "lambda_quizdeck_lab" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_logs_quizdeck_lab" {
+resource "aws_iam_role_policy_attachment" "lambda_logs_quizdeck" {
 
-  role       = aws_iam_role.lambda_quizdeck_lab.name
-  policy_arn = aws_iam_policy.lambda_quizdeck_lab.arn
+  role       = aws_iam_role.lambda_quizdeck.name
+  policy_arn = aws_iam_policy.lambda_quizdeck.arn
 }
