@@ -72,7 +72,7 @@ jobs:
           ECR_REPOSITORY_LAB: quizdeck/lab
           ECR_REPOSITORY_ROUTER_DISCORD: quizdeck/router_discord
           IMAGE_TAG: latest
-        if: github.ref == 'refs/heads/project/**' && github.event_name == 'pull_request'
+        if: github.ref == 'refs/heads/project/**'
         run: |
           docker push $ECR_REGISTRY/$ECR_REPOSITORY_LAB:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY_ROUTER_DISCORD:$IMAGE_TAG
