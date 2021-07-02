@@ -10,7 +10,7 @@ import (
 )
 
 func HandleRequest(ctx context.Context, event interface{}) (string, error) {
-	fmt.Printf("%v\n", event)
+	fmt.Printf("event: %v\n", event)
 	return fmt.Sprintf("current debug mode: %v", quizdeck.Config.GetDebugMode()), nil
 }
 
