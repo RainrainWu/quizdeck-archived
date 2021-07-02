@@ -2,12 +2,22 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"time"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/mitchellh/mapstructure"
 )
+
+type Authorization struct {
+	Signature string `json:"X-Signature-Ed25519"`
+	Timestamp string `json:"X-Signature-Timestamp"`
+}
+
+type Acknowledge struct {
+	Type int `json:"type"`
+}
 
 type DiscordInteraction struct {
 	Type   int    `json:"type"`
@@ -52,8 +62,13 @@ func loadInteraction(digest interface{}) DiscordInteraction {
 
 func HandleRequest(ctx context.Context, event interface{}) (string, error) {
 
+	fmt.Printf("event: %v\n", event)
 	result := loadInteraction(event)
-	fmt.Println("parse result: %v\n", result)
+	if result.Type == 1 {
+		ack := Acknowledge{Type: 1}
+		out, _ := json.Marshal(ack)
+		return string(out), nil
+	}
 	return fmt.Sprintf("current command: %s", result.Data.Options[0].Name), nil
 }
 
