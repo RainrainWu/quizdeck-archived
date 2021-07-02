@@ -1,19 +1,20 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"crypto/ed25519"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"time"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/mitchellh/mapstructure"
-)
 
-type Authorization struct {
-	Signature string `json:"X-Signature-Ed25519"`
-	Timestamp string `json:"X-Signature-Timestamp"`
-}
+	"github.com/RainrainWu/quizdeck"
+)
 
 type Acknowledge struct {
 	Type int `json:"type"`
@@ -53,6 +54,30 @@ type DiscordInteraction struct {
 	ChannelID string `json:"channel_id"`
 }
 
+func validate(signature, timestamp string) bool {
+
+	if signature == "" || timestamp == "" {
+		fmt.Println("err input")
+		return false
+	}
+
+	var msg bytes.Buffer
+	pub, _ := hex.DecodeString(quizdeck.Config.GetDiscordAppPublicKey())
+	pub = ed25519.PublicKey(pub)
+	fmt.Println("decode pub: ", pub)
+	sig, err := hex.DecodeString(signature)
+	fmt.Println("decode sig: ", sig)
+	if err != nil {
+		return false
+	}
+	if len(sig) != ed25519.SignatureSize || sig[63]&224 != 0 {
+		return false
+	}
+
+	msg.WriteString(timestamp)
+	return ed25519.Verify(pub, msg.Bytes(), sig)
+}
+
 func loadInteraction(digest interface{}) DiscordInteraction {
 
 	interaction := DiscordInteraction{}
@@ -60,16 +85,28 @@ func loadInteraction(digest interface{}) DiscordInteraction {
 	return interaction
 }
 
-func HandleRequest(ctx context.Context, event interface{}) (string, error) {
+func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
-	fmt.Printf("event: %v\n", event)
-	result := loadInteraction(event)
+	fmt.Println("event: ", request)
+	fmt.Println("sig: ", request.Headers["X-Signature-Ed25519"])
+	fmt.Println("tsp: ", request.Headers["X-Signature-Timestamp"])
+	if !validate(
+		request.Headers["X-Signature-Ed25519"],
+		request.Headers["X-Signature-Timestamp"],
+	) {
+		return events.APIGatewayProxyResponse{Body: "", StatusCode: 401}, nil
+	}
+
+	result := loadInteraction(request.Body)
 	if result.Type == 1 {
 		ack := Acknowledge{Type: 1}
 		out, _ := json.Marshal(ack)
-		return string(out), nil
+		return events.APIGatewayProxyResponse{Body: string(out), StatusCode: 200}, nil
 	}
-	return fmt.Sprintf("current command: %s", result.Data.Options[0].Name), nil
+	return events.APIGatewayProxyResponse{
+		Body:       fmt.Sprintf("current command: %s", result.Data.Options[0].Name),
+		StatusCode: 200,
+	}, nil
 }
 
 func main() {
